@@ -299,10 +299,8 @@ random.shuffle(ques)
 
 #temporary list for questions
 q_list=[] + ques
+score=0 #counter variable for score
 
-#print("ques:",ques)
-#print("qlist",q_list)
-score=0
 #list for storing answers from checkbutton
 ans=['']
 count=0
@@ -322,7 +320,6 @@ class Flash:
         self.clicked.set(self.options[0])
         self.opt = OptionMenu(self.flashcard0,self.clicked, *self.options)
         self.choice=self.clicked.get()
-        #print("self.choice",self.choice)
         
         self.sel = Button(self.flashcard0,text="Select",command=self.flashcard,fg="white",bg="black",font=("Ariel 15"))
         self.opt.grid(row=1,column=1,padx=10,pady=10)
@@ -334,16 +331,15 @@ class Flash:
             ans[0] = chk["text"]
         else:
             ans[0]=''
-        #print(var0,"\nans:",ans[0],"\nchk:",chk["text"])
+        
         
     def checkAns(self):
         self.answerb.config(state=DISABLED)
         global score
-        #print("\nans:",ans[0],"\ques:",q_list[rands][1],rands)
+        
         if ans[0] == q_list[rands][1]:
             ans_lb.config(text="Correct Answer!!!")
             score+=1
-            #print("score:",score)
         else:
             ans_lb.config(text="Incorrect Answer!!")
         q_list.remove(q_list[rands])
@@ -365,7 +361,7 @@ class Flash:
         if count < int(self.choice):
             
             if count > 0:
-                #checkbutton deleted for every questions
+                #checkbutton deleted after every question
                 chk1.destroy()
                 chk2.destroy()
                 chk3.destroy()
@@ -373,13 +369,11 @@ class Flash:
             #enable answer button
             self.answerb.config(state=ACTIVE)
             
-            #print("count",count)
             self.frame = Frame(self.flashcard,bg="lightblue",width=500)
             self.frame.grid(row=1,column=1)
 
             #random number       
             rands = random.randint(0,(len(q_list)-1))
-            #print("rands:",rands,"len[qlist]:",len(q_list))
 
             self.canvas0 = Canvas(self.frame,width=300,height=200)
 
@@ -394,7 +388,6 @@ class Flash:
                 #if color generated changes color of canvas
                 self.canvas0.config(bg=q_list[rands][0])
             else:
-                #print("q_list[rands][1]):",q_list[rands][1])
                 #else write text in canvas
                 self.canvas0.config(width=400)
                 self.canvas0.create_text(120,50,text=q_list[rands][0].upper(),font=("Georgia 20"))
@@ -448,7 +441,7 @@ class Flash:
         #print("self.choice:",self.choice)
         
         count = 0
-        #print(count)
+        
         self.lb0 = Label(self.flashcard, text="Select Correct French words for the Flashcards!!",bg="white",font=("Arial 12"))
         self.lb0.grid(row=0,column=1,padx=30,pady=20)        
 
@@ -516,7 +509,7 @@ def pyWindow():
 
     #shuffling questions
     random.shuffle(quest)
-    #print(quest)
+    
     global count,score1
     #count is for index
     count = 0
@@ -577,6 +570,7 @@ def pyWindow():
 def myfont():
     myfont=font.Font(size=5,family="Arial")
 
+#---main function---
 window=Tk()
 window.title("Edu.co")
 window.geometry("500x700")
